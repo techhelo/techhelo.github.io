@@ -12,12 +12,17 @@
   <title>Edu Converters</title>
   <link rel="stylesheet" href="style.css">
   <script src="scripts.js" defer></script>
+  <style>
+  body {
+    overflow: hidden; /* prevent scroll during loading */
+  }
+  </style>
 </head>
 <body>
-  <!-- Loader -->
-<div id="loader-wrapper">
-  <div id="loader"></div>
-  <p class="loading-text">Loading Edu Converters...</p>
+  <!-- Page Loader -->
+<div id="page-loader">
+  <div class="loader-spinner"></div>
+  <div class="loader-text">Loading Edu Converters...</div>
 </div>
 
   <div class="container">
@@ -57,14 +62,13 @@
     <p>Just enter total classes and attended classes. The tool shows your attendance percentage instantly.</p>
   </div>
   </section>
-  <script>
-  // Wait until full page is loaded
+ <script>
   window.addEventListener("load", function () {
-    const loader = document.getElementById("loader-wrapper");
-    loader.style.opacity = 0;
-    setTimeout(() => loader.style.display = "none", 500); // smooth fade out
+    const loader = document.getElementById("page-loader");
+    loader.style.opacity = "0";
+    loader.style.visibility = "hidden";
+    document.body.style.overflow = "auto"; // Allow scrolling after load
   });
-  </script>
-  
+ </script>
 </body>
 </html>
