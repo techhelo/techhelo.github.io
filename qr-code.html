@@ -1,4 +1,3 @@
-<!-- qr-code.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,23 +6,33 @@
   <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
   <style>
     body { font-family: sans-serif; padding: 2rem; text-align: center; }
-    input, button { padding: 10px; font-size: 16px; }
-    canvas { margin-top: 20px; }
+    input, button { padding: 10px; font-size: 16px; margin: 5px; }
+    canvas { margin-top: 20px; border: 1px solid #ddd; }
   </style>
 </head>
 <body>
   <h1>QR Code Generator</h1>
   <input type="text" id="text" placeholder="Enter text or URL" />
-  <button onclick="generateQR()">Generate QR Code</button><br><br>
-  <canvas id="qrcode"></canvas>
+  <button onclick="generateQR()">Generate</button>
+  <button onclick="downloadQR()">Download</button>
+  <br><canvas id="qrcode"></canvas>
 
   <script>
+    const canvas = document.getElementById('qrcode');
+
     function generateQR() {
       const text = document.getElementById('text').value;
-      const canvas = document.getElementById('qrcode');
+      if (!text) return;
       QRCode.toCanvas(canvas, text, function (error) {
         if (error) console.error(error);
       });
+    }
+
+    function downloadQR() {
+      const link = document.createElement('a');
+      link.download = 'qrcode.png';
+      link.href = canvas.toDataURL("image/png");
+      link.click();
     }
   </script>
 </body>
