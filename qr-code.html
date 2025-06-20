@@ -1,0 +1,30 @@
+<!-- qr-code.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>QR Code Generator | TechHelo</title>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+  <style>
+    body { font-family: sans-serif; padding: 2rem; text-align: center; }
+    input, button { padding: 10px; font-size: 16px; }
+    canvas { margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <h1>QR Code Generator</h1>
+  <input type="text" id="text" placeholder="Enter text or URL" />
+  <button onclick="generateQR()">Generate QR Code</button><br><br>
+  <canvas id="qrcode"></canvas>
+
+  <script>
+    function generateQR() {
+      const text = document.getElementById('text').value;
+      const canvas = document.getElementById('qrcode');
+      QRCode.toCanvas(canvas, text, function (error) {
+        if (error) console.error(error);
+      });
+    }
+  </script>
+</body>
+</html>
