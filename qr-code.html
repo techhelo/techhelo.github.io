@@ -5,17 +5,65 @@
   <title>QR Code Generator | TechHelo</title>
   <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
   <style>
-    body { font-family: sans-serif; padding: 2rem; text-align: center; }
-    input, button { padding: 10px; font-size: 16px; margin: 5px; }
-    canvas { margin-top: 20px; border: 1px solid #ddd; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+      background: #f9f9f9;
+    }
+    h1 {
+      margin-bottom: 1rem;
+    }
+    input {
+      padding: 10px;
+      font-size: 16px;
+      width: 80%;
+      max-width: 400px;
+      margin-bottom: 1rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    .btn {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin: 10px 5px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .generate-btn {
+      background-color: #007BFF;
+      color: white;
+    }
+    .generate-btn:hover {
+      background-color: #0056b3;
+    }
+    .download-btn {
+      background-color: #28a745;
+      color: white;
+    }
+    .download-btn:hover {
+      background-color: #1e7e34;
+    }
+    canvas {
+      margin-top: 20px;
+      border: 1px solid #ccc;
+    }
   </style>
 </head>
 <body>
   <h1>QR Code Generator</h1>
-  <input type="text" id="text" placeholder="Enter text or URL" />
-  <button onclick="generateQR()">Generate</button>
-  <button onclick="downloadQR()">Download</button>
-  <br><canvas id="qrcode"></canvas>
+  <input type="text" id="text" placeholder="Enter text or URL..." />
+  <div>
+    <button class="btn generate-btn" onclick="generateQR()">Generate</button>
+  </div>
+  <canvas id="qrcode"></canvas>
+  <div>
+    <button class="btn download-btn" onclick="downloadQR()">⬇ Download QR Code</button>
+  </div>
 
   <script>
     const canvas = document.getElementById('qrcode');
