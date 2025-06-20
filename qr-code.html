@@ -13,9 +13,7 @@
       padding: 2rem;
       background: #f9f9f9;
     }
-    h1 {
-      margin-bottom: 1rem;
-    }
+    h1 { margin-bottom: 1rem; }
     input {
       padding: 10px;
       font-size: 16px;
@@ -34,20 +32,10 @@
       cursor: pointer;
       transition: all 0.3s ease;
     }
-    .generate-btn {
-      background-color: #007BFF;
-      color: white;
-    }
-    .generate-btn:hover {
-      background-color: #0056b3;
-    }
-    .download-btn {
-      background-color: #28a745;
-      color: white;
-    }
-    .download-btn:hover {
-      background-color: #1e7e34;
-    }
+    .generate-btn { background-color: #007BFF; color: white; }
+    .generate-btn:hover { background-color: #0056b3; }
+    .download-btn { background-color: #28a745; color: white; display: none; }
+    .download-btn:hover { background-color: #1e7e34; }
     canvas {
       margin-top: 20px;
       border: 1px solid #ccc;
@@ -62,17 +50,19 @@
   </div>
   <canvas id="qrcode"></canvas>
   <div>
-    <button class="btn download-btn" onclick="downloadQR()">⬇ Download QR Code</button>
+    <button class="btn download-btn" id="downloadBtn" onclick="downloadQR()">⬇ Download QR Code</button>
   </div>
 
   <script>
     const canvas = document.getElementById('qrcode');
+    const downloadBtn = document.getElementById('downloadBtn');
 
     function generateQR() {
       const text = document.getElementById('text').value;
       if (!text) return;
       QRCode.toCanvas(canvas, text, function (error) {
         if (error) console.error(error);
+        else downloadBtn.style.display = 'inline-block';
       });
     }
 
