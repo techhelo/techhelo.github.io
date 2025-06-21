@@ -6,11 +6,8 @@
     <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-57SFC01JSF"></script>
 <script>
-  <!DOCTYPE html>
-<html lang="en">
-<head>
   <meta charset="UTF-8" />
-  <title>Advanced QR Code Generator | TechHelo</title>
+  <title>QR Code Generator | TechHelo</title>
   <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
   <style>
     body {
@@ -22,14 +19,14 @@
       background: #f9f9f9;
     }
     h1 { margin-bottom: 1rem; }
-    select, input {
+    input {
       padding: 10px;
       font-size: 16px;
-      margin: 5px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
       width: 80%;
       max-width: 400px;
+      margin-bottom: 1rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
     }
     .btn {
       padding: 10px 20px;
@@ -42,11 +39,7 @@
     }
     .generate-btn { background-color: #007BFF; color: white; }
     .generate-btn:hover { background-color: #0056b3; }
-    .download-btn {
-      background-color: #28a745;
-      color: white;
-      display: none;
-    }
+    .download-btn { background-color: #28a745; color: white; display: none; }
     .download-btn:hover { background-color: #1e7e34; }
     canvas {
       margin-top: 20px;
@@ -55,73 +48,36 @@
   </style>
 </head>
 <body>
-  <h1>Advanced QR Code Generator</h1>
-
-  <!-- Input Type -->
-  <select id="qrType">
-    <option value="text">🔤 Plain Text</option>
-    <option value="url">🌐 Website URL</option>
-    <option value="image">🖼️ Image URL</option>
-    <option value="video">🎥 Video URL</option>
-    <option value="email">✉️ Email</option>
-    <option value="phone">📱 Phone / WhatsApp</option>
-  </select>
-
-  <!-- Input Field -->
-  <input type="text" id="qrInput" placeholder="Enter your value here..." />
-
-  <!-- Buttons -->
+  <h1>QR Code Generator</h1>
+  <input type="text" id="text" placeholder="Enter text or URL..." />
   <div>
     <button class="btn generate-btn" onclick="generateQR()">Generate</button>
   </div>
-
-  <!-- QR Display -->
   <canvas id="qrcode"></canvas>
-
-  <!-- Download Button -->
   <div>
-    <button class="btn download-btn" id="downloadBtn" onclick="downloadQR()">⬇ Download QR</button>
+    <button class="btn download-btn" id="downloadBtn" onclick="downloadQR()">⬇ Download QR Code</button>
   </div>
-
-  <!-- Footer -->
-  <script src="footer.js"></script>
 
   <script>
     const canvas = document.getElementById('qrcode');
     const downloadBtn = document.getElementById('downloadBtn');
 
     function generateQR() {
-      const type = document.getElementById("qrType").value;
-      const input = document.getElementById("qrInput").value.trim();
-      if (!input) return;
-
-      let data = "";
-      switch (type) {
-        case "text": data = input; break;
-        case "url": data = input.startsWith("http") ? input : "https://" + input; break;
-        case "image": data = input; break;
-        case "video": data = input; break;
-        case "email": data = "mailto:" + input; break;
-        case "phone": data = "https://wa.me/" + input.replace(/\D/g, ""); break;
-        default: data = input;
-      }
-
-      QRCode.toCanvas(canvas, data, function (error) {
+      const text = document.getElementById('text').value;
+      if (!text) return;
+      QRCode.toCanvas(canvas, text, function (error) {
         if (error) console.error(error);
-        else downloadBtn.style.display = "inline-block";
+        else downloadBtn.style.display = 'inline-block';
       });
     }
 
     function downloadQR() {
       const link = document.createElement('a');
-      link.download = 'qr-code.png';
+      link.download = 'qrcode.png';
       link.href = canvas.toDataURL("image/png");
       link.click();
     }
   </script>
-</body>
-</html>
-
   <footer style="margin-top: 40px; padding: 20px; text-align: center; font-size: 14px; background: #f1f1f1;">
   <div>
     <span style="font-weight: bold;">🇮🇳 Made in India</span><br>
