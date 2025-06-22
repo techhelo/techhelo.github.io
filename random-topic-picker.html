@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Random Topic Picker | EduConverters</title>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-57SFC01JSF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-57SFC01JSF');
+  </script>
+
+  <!-- AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5206200725278654"
+    crossorigin="anonymous"></script>
+
+  <!-- Tailwind CSS + AOS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+</head>
+<body class="bg-gray-50 text-gray-900">
+<header class="bg-white shadow p-4 mb-6">
+  <div class="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center">
+    <div class="text-center sm:text-left">
+      <a href="index.html" class="text-2xl font-bold text-gray-900 hover:text-gray-700 transition">
+        🎓 EduConverters
+      </a>
+      <p class="text-sm text-gray-600">Smart Tools for Smarter Students</p>
+    </div>
+    <nav class="mt-2 sm:mt-0 space-x-4 text-sm text-gray-700">
+      <a href="index.html" class="hover:underline">Home</a>
+      <a href="about.html" class="hover:underline">About</a>
+      <a href="privacy-policy.html" class="hover:underline">Privacy</a>
+      <a href="contact.html" class="hover:underline">Contact</a>
+    </nav>
+  </div>
+</header>
+
+  <header class="bg-white shadow p-6 text-center mb-8">
+    <h1 class="text-3xl font-bold">🎲 Random Topic Picker</h1>
+    <p class="text-gray-600 mt-2">Enter multiple topics and pick one randomly</p>
+  </header>
+
+  <main class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow" data-aos="fade-up">
+    <label class="block mb-4">
+      <span class="text-gray-700 font-medium">Enter Topics (comma or newline separated)</span>
+      <textarea id="topicsInput" rows="6" class="w-full mt-2 p-3 border rounded resize-none"
+        placeholder="e.g., AI, Blockchain, Cybersecurity, Cloud Computing..."></textarea>
+    </label>
+
+    <button onclick="pickTopic()" class="bg-indigo-600 text-white px-5 py-2 rounded hover:bg-indigo-700">Pick Random Topic</button>
+
+    <div id="outputBox" class="mt-6 p-6 text-center bg-gray-100 border rounded hidden" data-aos="fade-up">
+      <h2 class="text-lg font-semibold">🎯 Picked Topic:</h2>
+      <p id="resultTopic" class="text-2xl font-bold text-indigo-700 mt-2"></p>
+    </div>
+  </main>
+
+ <footer class="mt-16 text-center text-sm text-gray-600 py-6">
+  <div class="mb-2">
+    Made in India❤️. <br />
+  </div>
+  
+  <!-- Social Icons -->
+  <div class="flex justify-center space-x-4 mt-3">
+    <a href="https://youtube.com/@twice_think?si=3S4DT5l5ujMx5BeD" target="_blank" class="hover:opacity-75" title="YouTube">
+      <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/youtube.svg" alt="YouTube" class="w-5 h-5">
+    </a>
+    <a href="https://instagram.com/YourProfile" target="_blank" class="hover:opacity-75" title="Instagram">
+      <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/instagram.svg" alt="Instagram" class="w-5 h-5">
+    </a>
+  </div>
+
+  <p class="mt-4">&copy; 2025 EduConverters. All rights reserved.</p>
+</footer>
+
+  <!-- AOS -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>AOS.init({ once: true });</script>
+
+  <!-- Topic Picker Script -->
+  <script>
+    function pickTopic() {
+      const input = document.getElementById("topicsInput").value;
+      const topics = input.split(/[\n,]+/).map(t => t.trim()).filter(t => t);
+      const outputBox = document.getElementById("outputBox");
+      const result = document.getElementById("resultTopic");
+
+      if (topics.length === 0) {
+        result.innerText = "Please enter at least one topic!";
+        outputBox.classList.remove("hidden");
+        return;
+      }
+
+      const randomIndex = Math.floor(Math.random() * topics.length);
+      result.innerText = topics[randomIndex];
+      outputBox.classList.remove("hidden");
+    }
+  </script>
+</body>
+</html>

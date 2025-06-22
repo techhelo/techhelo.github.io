@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Advanced Cover Letter Generator | EduConverters</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+</head>
+<body class="bg-gray-100 text-gray-900">
+
+  <!-- Header -->
+   <header class="bg-white shadow p-4 mb-6">
+  <div class="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center">
+    <div class="text-center sm:text-left">
+      <a href="index.html" class="text-2xl font-bold text-gray-900 hover:text-gray-700 transition">
+        🎓 EduConverters
+      </a>
+      <p class="text-sm text-gray-600">Smart Tools for Smarter Students</p>
+    </div>
+    <nav class="mt-2 sm:mt-0 space-x-4 text-sm text-gray-700">
+      <a href="index.html" class="hover:underline">Home</a>
+      <a href="about.html" class="hover:underline">About</a>
+      <a href="privacy-policy.html" class="hover:underline">Privacy</a>
+      <a href="contact.html" class="hover:underline">Contact</a>
+    </nav>
+  </div>
+</header>
+  <header class="bg-white shadow p-6 text-center mb-8">
+    <h1 class="text-3xl font-bold">📝 Advanced Cover Letter Generator</h1>
+    <p class="text-gray-600 mt-2">Generate professional letters tailored for your dream job</p>
+  </header>
+
+  <!-- Form -->
+  <main class="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow" data-aos="fade-up">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div>
+        <label class="block font-medium">Full Name</label>
+        <input id="name" type="text" class="w-full border p-2 rounded mb-2" placeholder="Jane Doe"/>
+      </div>
+      <div>
+        <label class="block font-medium">Email</label>
+        <input id="email" type="email" class="w-full border p-2 rounded mb-2" placeholder="jane@email.com"/>
+      </div>
+      <div>
+        <label class="block font-medium">Phone</label>
+        <input id="phone" type="text" class="w-full border p-2 rounded mb-2" placeholder="+91 1234567890"/>
+      </div>
+      <div>
+        <label class="block font-medium">Job Title</label>
+        <input id="jobTitle" type="text" class="w-full border p-2 rounded mb-2" placeholder="Frontend Developer"/>
+      </div>
+      <div>
+        <label class="block font-medium">Company Name</label>
+        <input id="company" type="text" class="w-full border p-2 rounded mb-2" placeholder="TechNova"/>
+      </div>
+      <div>
+        <label class="block font-medium">Tone</label>
+        <select id="tone" class="w-full border p-2 rounded mb-2">
+          <option value="formal">Formal</option>
+          <option value="friendly">Friendly</option>
+          <option value="confident">Confident</option>
+        </select>
+      </div>
+    </div>
+
+    <label class="block font-medium mt-4">Resume Summary / Key Achievements</label>
+    <textarea id="resumeText" rows="5" class="w-full border p-2 rounded mb-4" placeholder="Include your top skills, experience or achievements..."></textarea>
+
+    <button onclick="generateAdvancedLetter()" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 w-full">
+      Generate Cover Letter
+    </button>
+
+    <!-- Output -->
+    <div id="outputBox" class="mt-6 hidden">
+      <h2 class="text-xl font-semibold mb-2">Generated Letter</h2>
+      <textarea id="coverLetter" rows="14" class="w-full border p-3 rounded mb-3 font-mono"></textarea>
+      <div class="flex gap-4">
+        <button onclick="copyLetter()" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">📋 Copy</button>
+        <button onclick="downloadLetter()" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700">⬇ Download</button>
+      </div>
+    </div>
+  </main>
+
+  <footer class="mt-16 text-center text-sm text-gray-600 py-6">
+  <div class="mb-2">
+    Made in India❤️. <br />
+  </div>
+  
+  <!-- Social Icons -->
+  <div class="flex justify-center space-x-4 mt-3">
+    <a href="https://youtube.com/@twice_think?si=3S4DT5l5ujMx5BeD" target="_blank" class="hover:opacity-75" title="YouTube">
+      <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/youtube.svg" alt="YouTube" class="w-5 h-5">
+    </a>
+    <a href="https://instagram.com/YourProfile" target="_blank" class="hover:opacity-75" title="Instagram">
+      <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/instagram.svg" alt="Instagram" class="w-5 h-5">
+    </a>
+  </div>
+  <p class="mt-4">&copy; 2025 EduConverters. All rights reserved.</p>
+</footer>
+
+  <!-- JS Logic -->
+  <script>
+    function generateAdvancedLetter() {
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const job = document.getElementById("jobTitle").value.trim();
+      const company = document.getElementById("company").value.trim();
+      const resume = document.getElementById("resumeText").value.trim();
+      const tone = document.getElementById("tone").value;
+
+      const today = new Date().toLocaleDateString();
+
+      let body = "";
+
+      switch (tone) {
+        case "friendly":
+          body = `I'm super excited to apply for the ${job} role at ${company}! I believe my skills and passion would be a perfect fit for your team.`;
+          break;
+        case "confident":
+          body = `I am confident that my background and experience make me a strong candidate for the ${job} position at ${company}.`;
+          break;
+        default:
+          body = `I am writing to formally express my interest in the ${job} position at your esteemed company.`;
+      }
+
+      const letter = `
+${name}
+${email} | ${phone}
+
+${today}
+
+Hiring Manager
+${company}
+
+Subject: Application for the position of ${job}
+
+Dear Hiring Manager,
+
+${body}
+
+${resume}
+
+I look forward to the opportunity to contribute to your organization's success and am eager to discuss how my background aligns with your team.
+
+Thank you for your time and consideration.
+
+Sincerely,
+${name}
+`;
+
+      document.getElementById("coverLetter").value = letter.trim();
+      document.getElementById("outputBox").classList.remove("hidden");
+    }
+
+    function copyLetter() {
+      const text = document.getElementById("coverLetter");
+      text.select();
+      document.execCommand("copy");
+      alert("Cover letter copied!");
+    }
+
+    function downloadLetter() {
+      const text = document.getElementById("coverLetter").value;
+      const blob = new Blob([text], { type: "text/plain" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "advanced-cover-letter.txt";
+      link.click();
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Flashcard Generator | EduConverters</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <style>
+    .card { perspective: 1000px; }
+    .card-inner {
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+      position: relative;
+    }
+    .card:hover .card-inner {
+      transform: rotateY(180deg);
+    }
+    .card-front, .card-back {
+      backface-visibility: hidden;
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      text-align: center;
+    }
+    .card-back {
+      transform: rotateY(180deg);
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+
+  <!-- Header -->
+  <header class="bg-white shadow p-4 mb-6">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
+      <div class="text-center sm:text-left">
+        <a href="index.html" class="text-2xl font-bold text-gray-900 hover:text-gray-700 transition">
+          🎓 EduConverters
+        </a>
+        <p class="text-sm text-gray-600">Smart Tools for Smarter Students</p>
+      </div>
+      <nav class="flex flex-wrap items-center space-x-4 text-sm text-gray-700">
+        <a href="index.html" class="hover:underline">Home</a>
+        <a href="about.html" class="hover:underline">About</a>
+        <a href="privacy-policy.html" class="hover:underline">Privacy</a>
+        <a href="contact.html" class="hover:underline">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <<body class="bg-gray-100 text-gray-900">
+  <!-- Header -->
+  <header class="bg-white shadow p-6 text-center mb-8">
+    <h1 class="text-3xl font-bold">🧠Flashcard Generator</h1>
+    <p class="text-gray-600 mt-2">Turn your notes into interactive flip flashcards</p>
+  </header>
+
+  <!-- Main Content -->
+  <main class="max-w-xl mx-auto bg-white p-6 rounded-lg shadow" data-aos="fade-up">
+    <p class="mb-4 text-sm text-gray-700">
+      Paste your questions and answers using any format:<br>
+      <code>Q::A</code>, <code>Q => A</code>, <code>Q | A</code>, or <code>{"q": "...", "a": "..."}</code>
+    </p>
+
+    <textarea id="flashcardInput" rows="10" class="w-full border border-gray-300 p-3 rounded mb-4" placeholder="Examples:
+What is AI?::Artificial Intelligence
+Define ML => Machine Learning
+RAM | Random Access Memory
+{ &quot;q&quot;: &quot;HTML?&quot;, &quot;a&quot;: &quot;HyperText Markup Language&quot; }"></textarea>
+
+    <button onclick="generateFlashcards()" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">
+      Generate Flashcards
+    </button>
+
+    <div id="flashcardContainer" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8"></div>
+  </main>
+
+ <footer class="mt-16 text-center text-sm text-gray-600 py-6">
+  <div class="mb-2">
+    Made in India❤️. <br />
+  </div>
+  
+  <!-- Social Icons -->
+  <div class="flex justify-center space-x-4 mt-3">
+    <a href="https://youtube.com/@twice_think?si=3S4DT5l5ujMx5BeD" target="_blank" class="hover:opacity-75" title="YouTube">
+      <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/youtube.svg" alt="YouTube" class="w-5 h-5">
+    </a>
+    <a href="https://instagram.com/YourProfile" target="_blank" class="hover:opacity-75" title="Instagram">
+      <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/instagram.svg" alt="Instagram" class="w-5 h-5">
+    </a>
+  </div>
+  <p class="mt-4">&copy; 2025 EduConverters. All rights reserved.</p>
+</footer>
+
+  <!-- JS -->
+  <script>
+    function generateFlashcards() {
+      const container = document.getElementById("flashcardContainer");
+      container.innerHTML = '';
+      const lines = document.getElementById("flashcardInput").value.trim().split('\n');
+
+      lines.forEach(line => {
+        let question = "", answer = "";
+
+        try {
+          // JSON format
+          if (line.trim().startsWith("{")) {
+            const obj = JSON.parse(line);
+            question = obj.q;
+            answer = obj.a;
+          } else if (line.includes("::")) {
+            [question, answer] = line.split("::");
+          } else if (line.includes("=>")) {
+            [question, answer] = line.split("=>");
+          } else if (line.includes("|")) {
+            [question, answer] = line.split("|");
+          }
+
+          if (question && answer) {
+            const card = document.createElement("div");
+            card.className = "card bg-white shadow-md rounded-xl overflow-hidden";
+            card.innerHTML = `
+              <div class="card-inner w-full h-40">
+                <div class="card-front bg-indigo-100 text-gray-900 font-semibold text-center">
+                  ${question.trim()}
+                </div>
+                <div class="card-back bg-green-100 text-gray-800 font-medium text-center">
+                  ${answer.trim()}
+                </div>
+              </div>
+            `;
+            container.appendChild(card);
+          }
+        } catch (err) {
+          console.warn("Invalid format skipped:", line);
+        }
+      });
+    }
+  </script>
+</body>
+</html>

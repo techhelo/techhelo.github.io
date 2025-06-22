@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Resume Analyzer (.docx) | EduConverters</title>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-57SFC01JSF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-57SFC01JSF');
+  </script>
+
+  <!-- AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5206200725278654"
+    crossorigin="anonymous"></script>
+
+  <!-- Tailwind CSS + AOS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet"/>
+</head>
+<body class="bg-gray-50 text-gray-900">
+<header class="bg-white shadow p-4 mb-6">
+  <div class="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center">
+    <div class="text-center sm:text-left">
+      <a href="index.html" class="text-2xl font-bold text-gray-900 hover:text-gray-700 transition">
+        🎓 EduConverters
+      </a>
+      <p class="text-sm text-gray-600">Smart Tools for Smarter Students</p>
+    </div>
+    <nav class="mt-2 sm:mt-0 space-x-4 text-sm text-gray-700">
+      <a href="index.html" class="hover:underline">Home</a>
+      <a href="about.html" class="hover:underline">About</a>
+      <a href="privacy-policy.html" class="hover:underline">Privacy</a>
+      <a href="contact.html" class="hover:underline">Contact</a>
+    </nav>
+  </div>
+</header>
+
+  <header class="bg-white shadow p-6 text-center mb-6">
+    <h1 class="text-3xl font-bold">📄 Resume Analyzer (DOCX)</h1>
+    <p class="text-gray-600 mt-2">Upload a .docx file or paste text manually</p>
+  </header>
+
+  <main class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow" data-aos="fade-up">
+    <!-- Upload section -->
+    <div class="mb-4">
+      <label class="font-medium text-gray-700 block mb-1">Upload Resume (.docx only)</label>
+      <input type="file" id="docxInput" accept=".docx" class="border rounded p-2 w-full" onchange="loadDocx()" />
+    </div>
+
+    <!-- Textarea -->
+    <label class="block mb-4">
+      <span class="text-gray-700 font-medium">Resume Text (Editable)</span>
+      <textarea id="resumeInput" rows="10" class="w-full mt-2 p-3 border rounded resize-none"
+        placeholder="Paste or upload your resume content..."></textarea>
+    </label>
+
+    <!-- Analyze Button -->
+    <button onclick="analyzeResume()" class="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700">Analyze Resume</button>
+
+    <!-- Output -->
+    <div id="analysisBox" class="mt-6 p-6 bg-gray-100 border rounded hidden" data-aos="fade-up">
+      <h2 class="text-xl font-bold mb-2">🔍 Analysis Results</h2>
+      <ul class="list-disc pl-5 text-gray-800 space-y-2" id="resultList"></ul>
+      <p class="text-lg mt-4 font-semibold text-blue-700">✅ Resume Score: <span id="resumeScore">--</span>/100</p>
+    </div>
+  </main>
+
+ <footer class="mt-16 text-center text-sm text-gray-600 py-6">
+  <div class="mb-2">
+    Made in India❤️. <br />
+  </div>
+  
+  <!-- Social Icons -->
+  <div class="flex justify-center space-x-4 mt-3">
+    <a href="https://youtube.com/@twice_think?si=3S4DT5l5ujMx5BeD" target="_blank" class="hover:opacity-75" title="YouTube">
+      <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/youtube.svg" alt="YouTube" class="w-5 h-5">
+    </a>
+    <a href="https://instagram.com/YourProfile" target="_blank" class="hover:opacity-75" title="Instagram">
+      <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/instagram.svg" alt="Instagram" class="w-5 h-5">
+    </a>
+  </div>
+
+  <p class="mt-4">&copy; 2025 EduConverters. All rights reserved.</p>
+</footer>
+
+  <!-- AOS -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>AOS.init({ once: true });</script>
+
+  <!-- Mammoth.js for docx -->
+  <script src="https://unpkg.com/mammoth/mammoth.browser.min.js"></script>
+
+  <!-- Logic -->
+  <script>
+    function loadDocx() {
+      const input = document.getElementById('docxInput');
+      const reader = new FileReader();
+
+      reader.onload = function(event) {
+        const arrayBuffer = reader.result;
+        mammoth.extractRawText({ arrayBuffer: arrayBuffer })
+          .then(function(result) {
+            document.getElementById('resumeInput').value = result.value;
+          })
+          .catch(function(err) {
+            alert("Error reading .docx file. Try another.");
+            console.error(err);
+          });
+      };
+
+      if (input.files.length > 0) {
+        reader.readAsArrayBuffer(input.files[0]);
+      }
+    }
+
+    function analyzeResume() {
+      const text = document.getElementById("resumeInput").value.trim();
+      const resultBox = document.getElementById("analysisBox");
+      const resultList = document.getElementById("resultList");
+      const resumeScoreDisplay = document.getElementById("resumeScore");
+
+      resultList.innerHTML = "";
+      if (!text) {
+        resultList.innerHTML = "<li>Please paste or upload resume text first.</li>";
+        resumeScoreDisplay.textContent = "--";
+        resultBox.classList.remove("hidden");
+        return;
+      }
+
+      let score = 0;
+      const words = text.split(/\s+/).length;
+      const sections = {
+        Objective: /objective/i.test(text),
+        Education: /education/i.test(text),
+        Experience: /experience/i.test(text),
+        Projects: /project/i.test(text),
+        Skills: /skills|technologies/i.test(text),
+      };
+
+      const hasEmail = /\S+@\S+\.\S+/.test(text);
+      const hasPhone = /\b\d{10}\b/.test(text);
+
+      const skillKeywords = ['java', 'python', 'c++', 'html', 'css', 'react', 'node', 'sql', 'excel', 'powerpoint'];
+      const foundSkills = skillKeywords.filter(skill => new RegExp(skill, 'i').test(text));
+
+      // Scoring logic
+      if (words >= 150) score += 10;
+      if (hasEmail) score += 10;
+      if (hasPhone) score += 10;
+      if (foundSkills.length >= 3) score += 20;
+      Object.values(sections).forEach(present => score += present ? 10 : 0);
+
+      // Output
+      resultList.innerHTML += `<li>📄 Word Count: <strong>${words}</strong></li>`;
+      resultList.innerHTML += `<li>📬 Contact Info: ${hasEmail ? '✅ Email' : '❌ Email missing'}, ${hasPhone ? '✅ Phone' : '❌ Phone missing'}</li>`;
+      resultList.innerHTML += `<li>🛠️ Skills Found: ${foundSkills.length ? foundSkills.join(', ') : '❌ None'}</li>`;
+      Object.entries(sections).forEach(([section, present]) => {
+        resultList.innerHTML += `<li>${present ? '✅' : '❌'} ${section} Section ${present ? 'is present' : 'is missing'}</li>`;
+      });
+
+      // Tips
+      resultList.innerHTML += `<li class="mt-3 text-yellow-700"><strong>📝 Tips:</strong> ${generateTips(words, hasEmail, hasPhone, sections, foundSkills)}</li>`;
+
+      resumeScoreDisplay.textContent = score;
+      resultBox.classList.remove("hidden");
+    }
+
+    function generateTips(words, email, phone, sections, skills) {
+      const tips = [];
+
+      if (words < 150) tips.push("Add more detail to reach at least 150 words.");
+      if (!email) tips.push("Include a professional email address.");
+      if (!phone) tips.push("Add a reachable phone number.");
+      if (skills.length < 3) tips.push("Mention more technical or soft skills.");
+      Object.entries(sections).forEach(([key, val]) => {
+        if (!val) tips.push(`Consider adding a "${key}" section.`);
+      });
+
+      return tips.length ? tips.join(' ') : "Looks great! Keep it clean and concise.";
+    }
+  </script>
+</body>
+</html>
