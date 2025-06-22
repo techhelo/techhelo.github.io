@@ -1,98 +1,145 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-57SFC01JSF"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EduConverters | All Student Conversion Tools</title>
 
-  gtag('config', 'G-57SFC01JSF');
-</script>
-  <title>Edu Converters - CGPA, SGPA, Marks, Attendance Tools</title>
-<meta name="description" content="Convert CGPA to Percentage, SGPA to CGPA, Marks to Percentage and calculate attendance easily using Edu Converters. Free, fast, and student-friendly.">
-<meta name="keywords" content="edu converters, cgpa to percentage, sgpa to cgpa, marks calculator, percentage to cgpa, attendance calculator, grade tools">
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
-  <meta name="google-site-verification" content="Tz_3MJQg9ECcGCHkGBvPtTw8D38eKEk0CZuz-2mNiZQ" />
-<meta name="robots" content="index, follow">
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Edu Converters</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="scripts.js" defer></script>
-  <style>
-  body {
-    overflow: hidden; /* prevent scroll during loading */
-  }
-  </style>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-57SFC01JSF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-57SFC01JSF');
+  </script>
+
+  <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5206200725278654"
-     crossorigin="anonymous"></script>
+    crossorigin="anonymous"></script>
+
+  <!-- Tailwind CSS + AOS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
 </head>
-<body>
-  <!-- Page Loader -->
-<div id="page-loader">
-  <div class="loader-spinner"></div>
-  <div class="loader-text">Loading Please wait...</div>
+
+<body class="bg-gray-50 text-gray-900">
+
+  <!-- Header -->
+  <header class="bg-white shadow p-4">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
+      <div class="text-center sm:text-left">
+        <a href="index.html" class="text-2xl font-bold text-gray-900 hover:text-gray-700 transition">
+          🎓 EduConverters
+        </a>
+        <p class="text-sm text-gray-600">Smart Tools for Smarter Students</p>
+      </div>
+      <div class="flex flex-col sm:flex-row items-center sm:space-x-4 gap-2 w-full sm:w-auto">
+        <nav class="space-x-4 text-sm text-gray-700">
+          <a href="index.html" class="hover:underline">Home</a>
+          <a href="about.html" class="hover:underline">About</a>
+          <a href="privacy-policy.html" class="hover:underline">Privacy</a>
+          <a href="contact.html" class="hover:underline">Contact</a>
+        </nav>
+        <input type="text" id="toolSearch"
+               placeholder="Search tools..."
+               class="mt-2 sm:mt-0 px-3 py-1 rounded border text-sm focus:outline-none focus:ring focus:ring-gray-300"/>
+      </div>
+    </div>
+  </header>
+
+  <!-- Scrolling Disclaimer Text -->
+<div class="bg-yellow-100 text-yellow-800 py-2 px-4 text-sm font-medium overflow-hidden whitespace-nowrap">
+  <marquee behavior="scroll" direction="left" scrollamount="4">
+    ⚠️ This site includes some tools that use AI. Results may not always be accurate. Please use them with discretion.
+  </marquee>
 </div>
 
-  <div class="container">
-    <h2>📃Edu Converters</h2>
-    <p class="dashboard-info">
-  This platform allows students to easily convert academic data with below tools<br>
-  Note: Change factor in settings if needed.
-</p>
-    <a href="cgpa_to_percentage.html">🎓 CGPA ➡ Percentage</a><br>
-    <a href="percentage_to_cgpa.html">📊 Percentage ➡ CGPA</a><br>
-    <a href="sgpa_to_cgpa.html">📘 SGPA ➡ CGPA</a><br>
-    <a href="percentage_to_marks.html">🧮 Percentage ➡ Marks</a><br>
-    <a href="marks_to_percentage.html">✏️ Marks ➡ Percentage</a><br>
-    <a href="attendance_calculator.html">📅 Attendance Calculator</a><br>
-    <a href="qr-code.html">🔳 QR Code Generator</a><br>
-    <a href="password-generator.html">🔐 Password Generator</a><br>
-    <a href="settings.html">⚙️Settings</a>
-<div class="theme-toggle-container">
-  <span class="theme-label">🌞</span>
-  <label class="switch">
-    <input type="checkbox" id="theme-toggle">
-    <span class="slider"></span>
-  </label>
-  <span class="theme-label">🌙</span>
-</div>
-  </div>
-  <section class="faq">
-  <h2>❓ Frequently Asked Questions</h2>
-  <div class="faq-item">
-    <h3>💡 How do I convert CGPA to Percentage?</h3>
-    <p>You can use our CGPA ➡ Percentage converter. Most universities follow CGPA × 9.5, but you can also set a custom scale in Settings.</p>
-  </div>
-  <div class="faq-item">
-    <h3>📊 Can I calculate SGPA to CGPA?</h3>
-    <p>Yes, just enter all your semester SGPA values in the SGPA to CGPA converter and get the average.</p>
-  </div>
-  <div class="faq-item">
-    <h3>🧮 How is Attendance calculated?</h3>
-    <p>Just enter total classes and attended classes. The tool shows your attendance percentage instantly.</p>
-  </div>
-  </section>
- <script>
-  window.addEventListener("load", function () {
-    const loader = document.getElementById("page-loader");
-    loader.style.opacity = "0";
-    loader.style.visibility = "hidden";
-    document.body.style.overflow = "auto"; // Allow scrolling after load
-  });
- </script>
-  <footer style="margin-top: 40px; padding: 20px; text-align: center; font-size: 14px; background: #f1f1f1;">
-  <div>
-    <span style="font-weight: bold;">🇮🇳 Made in India</span><br>
-    <a href="mailto:testnme862@gmail.com" style="margin: 0 10px; text-decoration: none;">
-      ✉️ Contact
-    </a>
-  </div>
-  <div style="margin-top: 10px;">
-    © 2025 TechHelo | All rights reserved.<br>
-  </div>
+
+  <!-- Tool Cards -->
+  <main class="max-w-5xl mx-auto px-4" data-aos="fade-up">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <a href="cgpa_to_percentage.html" class="block bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+        <h2 class="text-xl font-semibold">CGPA to Percentage</h2>
+        <p class="text-gray-500 text-sm mt-1">Convert CGPA to percentage using multiplier</p>
+      </a>
+      <a href="sgpa_to_cgpa.html" class="block bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+        <h2 class="text-xl font-semibold">SGPA to CGPA</h2>
+        <p class="text-gray-500 text-sm mt-1">Combine semester-wise SGPA into CGPA</p>
+      </a>
+      <a href="attendance_calculator.html" class="block bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+        <h2 class="text-xl font-semibold">Attendance Calculator</h2>
+        <p class="text-gray-500 text-sm mt-1">Check attendance % and class requirements</p>
+      </a>
+      <a href="marks_to_percentage.html" class="block bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+        <h2 class="text-xl font-semibold">Marks to Percentage</h2>
+        <p class="text-gray-500 text-sm mt-1">Convert marks to % easily</p>
+      </a>
+      <a href="qr-code.html" class="block bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+        <h2 class="text-xl font-semibold">QR Code Generator</h2>
+        <p class="text-gray-500 text-sm mt-1">Create QR codes for any content</p>
+      </a>
+      <a href="password-generator.html" class="block bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+        <h2 class="text-xl font-semibold">Password Generator</h2>
+        <p class="text-gray-500 text-sm mt-1">Generate secure passwords instantly</p>
+      </a>
+      <a href="resume-analyzer.html" class="block bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+        <h2 class="text-xl font-semibold">Resume Analyzer</h2>
+        <p class="text-gray-500 text-sm mt-1">Get instant feedback on your resume</p>
+      </a>
+      <a href="random-topic-picker.html" class="block bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+        <h2 class="text-xl font-semibold">Random Topic Picker</h2>
+        <p class="text-gray-500 text-sm mt-1"> Instantly pick topics or team members</p>
+      </a>
+      <a href="fake-news-detector.html" class="block bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+        <h2 class="text-xl font-semibold">🕵️ Fake News Detector</h2>
+        <p class="text-gray-500 text-sm mt-1">Offline tool to detect misleading or fake-looking content</p>
+      </a>
+      <a href="flashcard-generator.html" class="block bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+        <h2 class="text-xl font-semibold">🧠 Flashcard Generator</h2>
+        <p class="text-gray-500 text-sm mt-1">Convert text into interactive flip flashcards</p>
+      </a>
+      <a href="cover-letter-generator.html" class="block bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+        <h2 class="text-xl font-semibold">📄 Advanced Cover Letter Generator</h2>
+        <p class="text-gray-500 text-sm mt-1">Generate highly customized cover letters with tone control</p>
+      </a>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="mt-16 text-center text-sm text-gray-600 py-6">
+    <div class="mb-2">
+      Made in India❤️. <br />
+    </div>
+    <div class="flex justify-center space-x-4 mt-3">
+      <a href="https://youtube.com/@twice_think?si=3S4DT5l5ujMx5BeD" target="_blank" class="hover:opacity-75" title="YouTube">
+        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/youtube.svg" alt="YouTube" class="w-5 h-5">
+      </a>
+      <a href="https://instagram.com/YourProfile" target="_blank" class="hover:opacity-75" title="Instagram">
+        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/instagram.svg" alt="Instagram" class="w-5 h-5">
+      </a>
+    </div>
+    <p class="mt-4">&copy; 2025 EduConverters. All rights reserved.</p>
   </footer>
+
+
+
+  <!-- AOS + Disclaimer Scripts -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>AOS.init({ once: true });</script>
+
+
+  <!-- Search Script -->
+  <script>
+    document.getElementById("toolSearch").addEventListener("input", function () {
+      const query = this.value.toLowerCase();
+      const cards = document.querySelectorAll("main .grid > a");
+      cards.forEach(card => {
+        const text = card.innerText.toLowerCase();
+        card.style.display = text.includes(query) ? "block" : "none";
+      });
+    });
+  </script>
+
 </body>
 </html>
