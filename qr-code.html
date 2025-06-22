@@ -1,107 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
   <meta charset="UTF-8" />
-  <title>QR Code Generator | TechHelo</title>
-
-  <!-- Google Ads -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5206200725278654"
-   crossorigin="anonymous"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QR Code Generator | EduConverters</title>
 
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-57SFC01JSF"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+    function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
     gtag('config', 'G-57SFC01JSF');
   </script>
 
-  <!-- QR Code Generator Library -->
-  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5206200725278654"
+    crossorigin="anonymous"></script>
 
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 2rem;
-      background: #f9f9f9;
-    }
-    h1 { margin-bottom: 1rem; }
-    input {
-      padding: 10px;
-      font-size: 16px;
-      width: 80%;
-      max-width: 400px;
-      margin-bottom: 1rem;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-    }
-    .btn {
-      padding: 10px 20px;
-      font-size: 16px;
-      margin: 10px 5px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-    .generate-btn { background-color: #007BFF; color: white; }
-    .generate-btn:hover { background-color: #0056b3; }
-    .download-btn { background-color: #28a745; color: white; display: none; }
-    .download-btn:hover { background-color: #1e7e34; }
-    canvas {
-      margin-top: 20px;
-      border: 1px solid #ccc;
-    }
-  </style>
+  <!-- Tailwind CSS + AOS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
 </head>
-<body>
-  <h1>QR Code Generator</h1>
-  <input type="text" id="text" placeholder="Enter text or URL..." />
-  <div>
-    <button class="btn generate-btn" onclick="generateQR()">Generate</button>
-  </div>
-  <canvas id="qrcode"></canvas>
-  <div>
-    <button class="btn download-btn" id="downloadBtn" onclick="downloadQR()">⬇ Download QR Code</button>
-  </div>
-
-  <script>
-    const canvas = document.getElementById('qrcode');
-    const downloadBtn = document.getElementById('downloadBtn');
-
-    function generateQR() {
-      const text = document.getElementById('text').value;
-      if (!text) return;
-      QRCode.toCanvas(canvas, text, function (error) {
-        if (error) console.error(error);
-        else downloadBtn.style.display = 'inline-block';
-      });
-    }
-
-    function downloadQR() {
-      const link = document.createElement('a');
-      link.download = 'qrcode.png';
-      link.href = canvas.toDataURL("image/png");
-      link.click();
-    }
-  </script>
-
-  <footer style="margin-top: 40px; padding: 20px; text-align: center; font-size: 14px; background: #f1f1f1;">
-    <div>
-      <span style="font-weight: bold;">🇮🇳 Made in India</span><br>
-      <a href="mailto:testnme862@gmail.com" style="margin: 0 10px; text-decoration: none;">
-        ✉️ Contact
+<body class="bg-gray-50 text-gray-900">
+<header class="bg-white shadow p-4 mb-6">
+  <div class="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center">
+    <div class="text-center sm:text-left">
+      <a href="index.html" class="text-2xl font-bold text-gray-900 hover:text-gray-700 transition">
+        🎓 EduConverters
       </a>
+      <p class="text-sm text-gray-600">Smart Tools for Smarter Students</p>
     </div>
-    <div style="margin-top: 10px;">
-      © 2025 TechHelo | All rights reserved.<br>
+    <nav class="mt-2 sm:mt-0 space-x-4 text-sm text-gray-700">
+      <a href="index.html" class="hover:underline">Home</a>
+      <a href="about.html" class="hover:underline">About</a>
+      <a href="privacy-policy.html" class="hover:underline">Privacy</a>
+      <a href="contact.html" class="hover:underline">Contact</a>
+    </nav>
+  </div>
+</header>
+
+  <header class="bg-white shadow p-6 text-center mb-8">
+    <h1 class="text-3xl font-bold">QR Code Generator</h1>
+    <p class="text-gray-600 mt-2">Generate a QR code for any text, link, or contact info</p>
+  </header>
+
+  <main class="max-w-xl mx-auto bg-white p-6 rounded-lg shadow" data-aos="fade-up">
+    <p class="mb-4 text-sm text-gray-700">Type any text or link below to instantly generate a QR code.</p>
+
+    <form id="qrForm" class="space-y-4">
+      <label class="block">
+        <span class="text-gray-700 font-medium">Text or URL</span>
+        <input type="text" id="qrText" required class="mt-1 w-full border rounded p-2" placeholder="https://example.com" />
+      </label>
+      <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Generate QR</button>
+    </form>
+
+    <div class="mt-6 text-center">
+      <canvas id="qrCanvas"></canvas>
+      <p id="qrNote" class="text-xs text-gray-500 mt-2 hidden">Right-click and save the QR code image.</p>
     </div>
-  </footer>
+  </main>
+
+<footer class="mt-16 text-center text-sm text-gray-600 py-6">
+  <div class="mb-2">
+    Made in India❤️. <br />
+  </div>
+  
+  <!-- Social Icons -->
+  <div class="flex justify-center space-x-4 mt-3">
+    <a href="https://youtube.com/@twice_think?si=3S4DT5l5ujMx5BeD" target="_blank" class="hover:opacity-75" title="YouTube">
+      <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/youtube.svg" alt="YouTube" class="w-5 h-5">
+    </a>
+    <a href="https://instagram.com/YourProfile" target="_blank" class="hover:opacity-75" title="Instagram">
+      <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/instagram.svg" alt="Instagram" class="w-5 h-5">
+    </a>
+  </div>
+
+  <p class="mt-4">&copy; 2025 EduConverters. All rights reserved.</p>
+</footer>
+
+  <!-- AOS -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>AOS.init({ once: true });</script>
+
+  <!-- QR Code Generator -->
+  <script src="https://cdn.jsdelivr.net/npm/qrious/dist/qrious.min.js"></script>
+  <script>
+    const form = document.getElementById('qrForm');
+    const canvas = document.getElementById('qrCanvas');
+    const note = document.getElementById('qrNote');
+    const qr = new QRious({ element: canvas, size: 250 });
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const text = document.getElementById('qrText').value.trim();
+      if (text.length === 0) return;
+      qr.set({ value: text });
+      note.classList.remove('hidden');
+    });
+  </script>
 </body>
 </html>
