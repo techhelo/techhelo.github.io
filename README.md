@@ -1,48 +1,37 @@
-# 🎓 Edu Converters – Student Grade & Attendance Tools
+# 🎓 EduConverters
 
-This is a free, easy-to-use website for converting:
+EduConverters is a student-friendly website that offers useful academic tools like:
 
-- CGPA to Percentage
-- Percentage to CGPA
-- SGPA to CGPA
-- Percentage to Marks
-- Marks to Percentage
-- Attendance Calculator
+- CGPA to Percentage Converter  
+- SGPA to CGPA Calculator  
+- Attendance Calculator  
+- Resume Analyzer  
+- Flashcard Generator  
+- Random Topic Picker  
+- Cover Letter Generator  
+- Fake News Detector  
+- QR Code Generator  
+- And more tools coming soon!
 
-🚀 **Live Website**: [Visit Here](https://techhelo.github.io)
-
----
-
-## 💻 Features
-
-- ✅ Mobile-friendly design
-- 🌗 Light/Dark theme toggle
-- ⚙️ Custom grading system
-- 📈 Instant conversion results
+🔗 Visit the site: [https://techhelo.github.io](https://techhelo.github.io)
 
 ---
 
-## 📂 How to Use
+## ✨ Features
 
-Just open the `index.html` file in your browser or deploy using GitHub Pages.
-
----
-
-## 🛠 Technologies
-
-- HTML5  
-- CSS3  
-- JavaScript  
-- GitHub Pages
+- Clean and responsive UI  
+- Works on all devices  
+- Fast and secure  
+- Google Analytics + AdSense ready  
+- All tools are free to use
 
 ---
 
 ## 📬 Contact
 
-For suggestions, contact me via [GitHub Issues](https://github.com/techhelo/edu-converters/issues)
+For feedback or bug reports:  
+📧 Email: [testnme862@gmail.com](mailto:testnme862@gmail.com)
 
 ---
 
-## 📄 License
-
-This project is open-source and free to use.
+© 2025 EduConverters. Made with ❤️ in India.
