@@ -34,4 +34,4 @@ For feedback or bug reports:
 
 ---
 
-© 2025 EduConverters. Made with ❤️ in India.
+© 2025 EduConverters. Made in India❤️.
