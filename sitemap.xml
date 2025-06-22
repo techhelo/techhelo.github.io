@@ -1,28 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
-  <!-- Homepage -->
   <url>
     <loc>https://techhelo.github.io/</loc>
-    <priority>1.0</priority>
   </url>
-
-  <!-- Tools -->
-  <url><loc>https://techhelo.github.io/cgpa_to_percentage.html</loc></url>
-  <url><loc>https://techhelo.github.io/sgpa_to_cgpa.html</loc></url>
-  <url><loc>https://techhelo.github.io/attendance_calculator.html</loc></url>
-  <url><loc>https://techhelo.github.io/marks_to_percentage.html</loc></url>
-  <url><loc>https://techhelo.github.io/qr-code.html</loc></url>
-  <url><loc>https://techhelo.github.io/password-generator.html</loc></url>
-  <url><loc>https://techhelo.github.io/resume-analyzer.html</loc></url>
-  <url><loc>https://techhelo.github.io/random-topic-picker.html</loc></url>
-  <url><loc>https://techhelo.github.io/fake-news-detector.html</loc></url>
-  <url><loc>https://techhelo.github.io/flashcard-generator.html</loc></url>
-  <url><loc>https://techhelo.github.io/cover-letter-generator.html</loc></url>
-
-  <!-- Essential Pages -->
-  <url><loc>https://techhelo.github.io/about.html</loc></url>
-  <url><loc>https://techhelo.github.io/privacy-policy.html</loc></url>
-  <url><loc>https://techhelo.github.io/contact.html</loc></url>
-
+  <url>
+    <loc>https://techhelo.github.io/cgpa_to_percentage.html</loc>
+  </url>
+  <url>
+    <loc>https://techhelo.github.io/sgpa_to_cgpa.html</loc>
+  </url>
+  <url>
+    <loc>https://techhelo.github.io/attendance_calculator.html</loc>
+  </url>
+  <url>
+    <loc>https://techhelo.github.io/marks_to_percentage.html</loc>
+  </url>
+  <url>
+    <loc>https://techhelo.github.io/qr-code.html</loc>
+  </url>
+  <url>
+    <loc>https://techhelo.github.io/password-generator.html</loc>
+  </url>
+  <url>
+    <loc>https://techhelo.github.io/resume-analyzer.html</loc>
+  </url>
+  <url>
+    <loc>https://techhelo.github.io/random-topic-picker.html</loc>
+  </url>
+  <url>
+    <loc>https://techhelo.github.io/fake-news-detector.html</loc>
+  </url>
+  <url>
+    <loc>https://techhelo.github.io/flashcard-generator.html</loc>
+  </url>
+  <url>
+    <loc>https://techhelo.github.io/cover-letter-generator.html</loc>
+  </url>
 </urlset>
