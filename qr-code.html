@@ -73,10 +73,6 @@
         🔒 We respect your privacy — this tool does not access your files or media.  
         To save your QR code, simply take a screenshot.
       </p>
-      <button id="resetBtn" 
-              class="hidden bg-gray-200 text-gray-800 px-5 py-2 rounded-full hover:bg-gray-300 transition font-medium">
-        🔄 Start Fresh
-      </button>
     </div>
   </main>
 
@@ -97,7 +93,6 @@
     const form = document.getElementById('qrForm');
     const canvas = document.getElementById('qrCanvas');
     const privacyNote = document.getElementById('privacyNote');
-    const resetBtn = document.getElementById('resetBtn');
     const foregroundPicker = document.getElementById('qrForeground');
     const backgroundPicker = document.getElementById('qrBackground');
     const textInput = document.getElementById('qrText');
@@ -116,18 +111,9 @@
         background: backgroundPicker.value
       });
 
-      // Show QR & privacy note & reset button
+      // Show QR & privacy note
       canvas.classList.remove('hidden');
       privacyNote.classList.remove('hidden');
-      resetBtn.classList.remove('hidden');
-    });
-
-    resetBtn.addEventListener('click', function () {
-      // Reset everything
-      textInput.value = "";
-      canvas.classList.add('hidden');
-      privacyNote.classList.add('hidden');
-      resetBtn.classList.add('hidden');
     });
   </script>
 </body>
