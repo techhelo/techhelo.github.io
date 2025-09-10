@@ -15,10 +15,6 @@
     gtag('config', 'G-57SFC01JSF');
   </script>
 
-  <!-- Google AdSense -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5206200725278654"
-    crossorigin="anonymous"></script>
-
   <!-- Tailwind CSS + AOS -->
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
   <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
@@ -58,8 +54,16 @@
     </form>
 
     <div class="mt-6 text-center">
-      <canvas id="qrCanvas"></canvas>
-      <p id="qrNote" class="text-xs text-gray-500 mt-2 hidden">Right-click and save the QR code image.</p>
+      <canvas id="qrCanvas" class="mx-auto"></canvas>
+      <p id="qrNote" class="text-xs text-gray-500 mt-2 hidden">Right-click is disabled. Use the button below 👇</p>
+      
+      <!-- Download Button (hidden by default) -->
+      <a id="downloadBtn" 
+         href="#" 
+         download="qrcode.png"
+         class="hidden mt-4 inline-block bg-gradient-to-r from-purple-600 via-pink-500 to-red-500 text-white px-5 py-2 rounded-full shadow-lg hover:scale-105 transform transition font-medium">
+         ⬇️ Download QR
+      </a>
     </div>
   </main>
 
@@ -91,14 +95,23 @@
     const form = document.getElementById('qrForm');
     const canvas = document.getElementById('qrCanvas');
     const note = document.getElementById('qrNote');
+    const downloadBtn = document.getElementById('downloadBtn');
     const qr = new QRious({ element: canvas, size: 250 });
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       const text = document.getElementById('qrText').value.trim();
       if (text.length === 0) return;
+      
+      // Generate QR
       qr.set({ value: text });
+      
+      // Show note and download button
       note.classList.remove('hidden');
+      downloadBtn.classList.remove('hidden');
+
+      // Set download link
+      downloadBtn.href = canvas.toDataURL("image/png");
     });
   </script>
 </body>
