@@ -50,6 +50,19 @@
         <span class="text-gray-700 font-medium">Text or URL</span>
         <input type="text" id="qrText" required class="mt-1 w-full border rounded p-2" placeholder="https://example.com" />
       </label>
+
+      <!-- Color Pickers -->
+      <div class="flex space-x-4">
+        <label class="flex items-center space-x-2">
+          <span class="text-gray-700 text-sm">Foreground</span>
+          <input type="color" id="qrForeground" value="#000000" class="w-10 h-8 cursor-pointer">
+        </label>
+        <label class="flex items-center space-x-2">
+          <span class="text-gray-700 text-sm">Background</span>
+          <input type="color" id="qrBackground" value="#ffffff" class="w-10 h-8 cursor-pointer">
+        </label>
+      </div>
+
       <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Generate QR</button>
     </form>
 
@@ -97,6 +110,8 @@
     const canvas = document.getElementById('qrCanvas');
     const note = document.getElementById('qrNote');
     const downloadBtn = document.getElementById('downloadBtn');
+    const foregroundPicker = document.getElementById('qrForeground');
+    const backgroundPicker = document.getElementById('qrBackground');
 
     // Gradient themes for button
     const buttonGradients = [
@@ -107,15 +122,6 @@
       "bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-500"
     ];
 
-    // Color themes for QR
-    const qrColors = [
-      { foreground: "#e11d48", background: "#fff0f5" }, // red on light pink
-      { foreground: "#2563eb", background: "#eff6ff" }, // blue on light blue
-      { foreground: "#16a34a", background: "#ecfdf5" }, // green on mint
-      { foreground: "#9333ea", background: "#f3e8ff" }, // purple on lavender
-      { foreground: "#f97316", background: "#fff7ed" }  // orange on peach
-    ];
-
     let qr = new QRious({ element: canvas, size: 250 });
 
     form.addEventListener('submit', function (e) {
@@ -123,14 +129,15 @@
       const text = document.getElementById('qrText').value.trim();
       if (text.length === 0) return;
       
-      // Pick random QR color theme
-      const theme = qrColors[Math.floor(Math.random() * qrColors.length)];
+      // Get selected colors
+      const fg = foregroundPicker.value;
+      const bg = backgroundPicker.value;
       
-      // Generate QR
+      // Generate QR with chosen colors
       qr.set({
         value: text,
-        foreground: theme.foreground,
-        background: theme.background
+        foreground: fg,
+        background: bg
       });
 
       // Show QR & controls
