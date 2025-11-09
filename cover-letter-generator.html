@@ -2,125 +2,245 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Advanced Cover Letter Generator | EduConverters</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cover Letter Generator | EduConverters</title>
   <script src="seo-injector.js" defer></script>
 
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-57SFC01JSF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-57SFC01JSF');
+  </script>
+
+  <!-- Tailwind + AOS + jsPDF -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <style>
+    /* === Base Theme === */
+    body { background:#f9fafb; color:#111827; font-family:Inter,system-ui,sans-serif; overflow-x:hidden; }
+
+    /* === Header === */
+    header.site {
+      backdrop-filter: blur(12px);
+      background: rgba(255,255,255,0.9);
+      border-bottom: 1px solid #e5e7eb;
+      position: sticky; top: 0; z-index: 50;
+      animation: fadeDown 0.8s ease-out;
+    }
+    @keyframes fadeDown {
+      0% { opacity: 0; transform: translateY(-20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    .logo { font-weight: 800; font-size: 1.25rem; display: flex; align-items: center; gap: .5rem; }
+    .subtitle { font-size: .875rem; color: #6b7280; }
+
+    /* === Ink Hover Animation === */
+    .nav-link {
+      position: relative; padding-bottom: 6px; color: #374151; transition: color .25s;
+    }
+    .nav-link::before {
+      content: ""; position: absolute; bottom: 0; left: 0; width: 100%; height: 2px;
+      background: #000; transform: scaleX(0); transform-origin: right;
+      transition: transform .35s cubic-bezier(.77,0,.175,1);
+    }
+    .nav-link:hover { color: #000; }
+    .nav-link:hover::before { transform: scaleX(1); transform-origin: left; }
+    @media(max-width:768px){ .nav-link::before{display:none;} }
+
+    /* === Hamburger === */
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px; cursor: pointer;
+      transition: transform .3s ease;
+    }
+    .bar {
+      width: 24px; height: 3px; background: #111; border-radius: 2px;
+      transition: all .3s ease;
+    }
+    .hamburger.active .bar:nth-child(1){ transform: rotate(45deg) translate(5px,5px); }
+    .hamburger.active .bar:nth-child(2){ opacity: 0; }
+    .hamburger.active .bar:nth-child(3){ transform: rotate(-45deg) translate(5px,-5px); }
+    @media(max-width:768px){ .hamburger{display:flex;} nav.desktop{display:none;} }
+
+    /* === Sidebar === */
+    .sidebar {
+      position: fixed; left: -100%; top: 0; height: 100vh; width: 80%; max-width: 280px;
+      background: rgba(255,255,255,0.95); backdrop-filter: blur(16px);
+      box-shadow: 4px 0 20px rgba(0,0,0,0.15);
+      padding: 4rem 1.5rem; border-top-right-radius: 20px; border-bottom-right-radius: 20px;
+      transition: all .5s cubic-bezier(.22,1,.36,1);
+      z-index: 120; transform: scale(0.96);
+      opacity: 0;
+    }
+    .sidebar.active { left: 0; transform: scale(1); opacity: 1; }
+
+    .sidebar a {
+      display: block; color: #111; font-weight: 500; margin-bottom: 1rem;
+      opacity: 0; transform: translateX(-10px);
+      animation: fadeLink 0.5s forwards;
+    }
+    .sidebar.active a:nth-child(1){ animation-delay: .15s; }
+    .sidebar.active a:nth-child(2){ animation-delay: .25s; }
+    .sidebar.active a:nth-child(3){ animation-delay: .35s; }
+    .sidebar.active a:nth-child(4){ animation-delay: .45s; }
+    @keyframes fadeLink {
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    /* === Overlay === */
+    .overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.3);
+      opacity: 0; visibility: hidden; transition: all .3s ease;
+      z-index: 100;
+    }
+    .overlay.active { opacity: 1; visibility: visible; }
+
+    /* === Main Card === */
+    main.card {
+      max-width: 880px; margin: 2rem auto; background: #fff; border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05); padding: 1.75rem;
+    }
+    button:hover { transform: translateY(-2px); transition: .2s ease; }
+    #outputBox { opacity: 0; transform: translateY(10px); transition: all .4s ease; }
+    #outputBox.visible { opacity: 1; transform: translateY(0); }
+  </style>
 </head>
-<body class="bg-gray-100 text-gray-900">
+<body>
+
+  <div id="overlay" class="overlay" onclick="closeSidebar()"></div>
 
   <!-- Header -->
-   <header class="bg-white shadow p-4 mb-6">
-  <div class="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center">
-    <div class="text-center sm:text-left">
-      <a href="index.html" class="text-2xl font-bold text-gray-900 hover:text-gray-700 transition">
-        🎓 EduConverters
-      </a>
-      <p class="text-sm text-gray-600">Smart Tools for Smarter Students</p>
+  <header class="site p-4">
+    <div class="max-w-6xl mx-auto flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <button id="hambtn" class="hamburger"><span class="bar"></span><span class="bar"></span><span class="bar"></span></button>
+        <div>
+          <a href="index.html" class="logo"><span style="font-size:1.35rem;">🎓</span>EduConverters</a>
+          <div class="subtitle">Smart Tools for Smarter Students</div>
+        </div>
+      </div>
+      <nav class="desktop flex gap-6">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="privacy-policy.html" class="nav-link">Privacy</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </nav>
     </div>
-    <nav class="mt-2 sm:mt-0 space-x-4 text-sm text-gray-700">
-      <a href="index.html" class="hover:underline">Home</a>
-      <a href="about.html" class="hover:underline">About</a>
-      <a href="privacy-policy.html" class="hover:underline">Privacy</a>
-      <a href="contact.html" class="hover:underline">Contact</a>
-    </nav>
-  </div>
-</header>
-  <header class="bg-white shadow p-6 text-center mb-8">
-    <h1 class="text-3xl font-bold">📝 Advanced Cover Letter Generator</h1>
-    <p class="text-gray-600 mt-2">Generate professional letters tailored for your dream job</p>
   </header>
 
-  <!-- Form -->
-  <main class="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow" data-aos="fade-up">
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-      <div>
-        <label class="block font-medium">Full Name</label>
-        <input id="name" type="text" class="w-full border p-2 rounded mb-2" placeholder="Jane Doe"/>
-      </div>
-      <div>
-        <label class="block font-medium">Email</label>
-        <input id="email" type="email" class="w-full border p-2 rounded mb-2" placeholder="jane@email.com"/>
-      </div>
-      <div>
-        <label class="block font-medium">Phone</label>
-        <input id="phone" type="text" class="w-full border p-2 rounded mb-2" placeholder="+91 1234567890"/>
-      </div>
-      <div>
-        <label class="block font-medium">Job Title</label>
-        <input id="jobTitle" type="text" class="w-full border p-2 rounded mb-2" placeholder="Frontend Developer"/>
-      </div>
-      <div>
-        <label class="block font-medium">Company Name</label>
-        <input id="company" type="text" class="w-full border p-2 rounded mb-2" placeholder="TechNova"/>
-      </div>
-      <div>
-        <label class="block font-medium">Tone</label>
-        <select id="tone" class="w-full border p-2 rounded mb-2">
-          <option value="formal">Formal</option>
-          <option value="friendly">Friendly</option>
-          <option value="confident">Confident</option>
-        </select>
-      </div>
-    </div>
+  <!-- Sidebar -->
+  <aside id="sidebar" class="sidebar">
+    <nav class="flex flex-col space-y-2 text-base">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="privacy-policy.html">Privacy</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </aside>
 
-    <label class="block font-medium mt-4">Resume Summary / Key Achievements</label>
-    <textarea id="resumeText" rows="5" class="w-full border p-2 rounded mb-4" placeholder="Include your top skills, experience or achievements..."></textarea>
+  <!-- Tool Header -->
+  <header class="bg-white shadow p-6 text-center mb-6" data-aos="fade-down">
+    <h1 class="text-3xl font-bold">📝 Cover Letter Generator</h1>
+    <p class="text-gray-600 mt-2">Create professional and downloadable letters instantly.</p>
+  </header>
 
-    <button onclick="generateAdvancedLetter()" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 w-full">
-      Generate Cover Letter
-    </button>
+  <!-- Main -->
+  <main class="card" data-aos="fade-up">
+    <form class="space-y-4" onsubmit="return false;">
+      <div class="grid sm:grid-cols-2 gap-4">
+        <label class="block">
+          <span class="text-gray-700 font-medium">Full Name</span>
+          <input id="name" class="w-full border rounded p-2 mt-1" placeholder="Jane Doe">
+        </label>
+        <label class="block">
+          <span class="text-gray-700 font-medium">Email</span>
+          <input id="email" type="email" class="w-full border rounded p-2 mt-1" placeholder="jane@email.com">
+        </label>
+        <label class="block">
+          <span class="text-gray-700 font-medium">Phone</span>
+          <input id="phone" class="w-full border rounded p-2 mt-1" placeholder="+91 9999999999">
+        </label>
+        <label class="block">
+          <span class="text-gray-700 font-medium">Job Title</span>
+          <input id="jobTitle" class="w-full border rounded p-2 mt-1" placeholder="Frontend Developer">
+        </label>
+      </div>
 
-    <!-- Output -->
-    <div id="outputBox" class="mt-6 hidden">
-      <h2 class="text-xl font-semibold mb-2">Generated Letter</h2>
-      <textarea id="coverLetter" rows="14" class="w-full border p-3 rounded mb-3 font-mono"></textarea>
-      <div class="flex gap-4">
+      <label class="block">
+        <span class="text-gray-700 font-medium">Company Name</span>
+        <input id="company" class="w-full border rounded p-2 mt-1" placeholder="TechNova Pvt Ltd">
+      </label>
+
+      <label class="block">
+        <span class="text-gray-700 font-medium">Your Highlights</span>
+        <textarea id="resumeText" rows="4" class="w-full border rounded p-2 mt-1" placeholder="E.g., Managed 3 projects, improved efficiency..."></textarea>
+      </label>
+
+      <button onclick="generateLetter()" class="bg-blue-600 text-white w-full py-2 rounded hover:bg-blue-700">🎲 Generate Cover Letter</button>
+    </form>
+
+    <div id="outputBox" class="mt-6">
+      <h2 class="text-lg font-semibold mb-2">Generated Cover Letter</h2>
+      <textarea id="coverLetter" rows="12" class="w-full border rounded p-3 font-mono text-sm"></textarea>
+      <div class="flex gap-3 mt-3">
         <button onclick="copyLetter()" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">📋 Copy</button>
-        <button onclick="downloadLetter()" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700">⬇ Download</button>
+        <button onclick="downloadPDF()" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700">⬇ Download PDF</button>
       </div>
     </div>
   </main>
 
-  <footer class="mt-16 text-center text-sm text-gray-600 py-6">
-  <div class="mb-2">
-    Made in India❤️. <br />
-  </div>
-  
-  <p class="mt-4">&copy; 2025 EduConverters. All rights reserved.</p>
-</footer>
+  <!-- Footer -->
+  <footer class="text-center text-sm text-gray-600 py-6 mt-12" data-aos="fade-up">
+    <div>Made in India ❤️</div>
+    <p class="mt-2">&copy; 2025 EduConverters. All rights reserved.</p>
+  </footer>
 
-  <!-- JS Logic -->
+  <!-- AOS -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>AOS.init({ once:true, duration:800, easing:'ease-out' });</script>
+
+  <!-- Script -->
   <script>
-    function generateAdvancedLetter() {
-      const name = document.getElementById("name").value.trim();
-      const email = document.getElementById("email").value.trim();
-      const phone = document.getElementById("phone").value.trim();
-      const job = document.getElementById("jobTitle").value.trim();
-      const company = document.getElementById("company").value.trim();
-      const resume = document.getElementById("resumeText").value.trim();
-      const tone = document.getElementById("tone").value;
+    const hambtn=document.getElementById('hambtn');
+    const sidebar=document.getElementById('sidebar');
+    const overlay=document.getElementById('overlay');
 
-      const today = new Date().toLocaleDateString();
+    hambtn.onclick=()=>{
+      hambtn.classList.toggle('active');
+      sidebar.classList.toggle('active');
+      overlay.classList.toggle('active');
+    }
+    function closeSidebar(){
+      hambtn.classList.remove('active');
+      sidebar.classList.remove('active');
+      overlay.classList.remove('active');
+    }
 
-      let body = "";
+    const templates=[
+      "I am eager to apply for [JOB] at [COMPANY]. My skills and dedication align perfectly with your company’s goals.",
+      "As an experienced [JOB], I am inspired by [COMPANY]’s commitment to innovation and would love to contribute.",
+      "I admire [COMPANY] for its growth and am confident my background suits the [JOB] role well.",
+      "I’m thrilled to apply for [JOB] at [COMPANY]; my passion and achievements align with your vision.",
+      "Dear Hiring Manager, I am writing to express my interest in the [JOB] position at [COMPANY].",
+      "With a track record of success, I see [COMPANY] as the perfect place to excel as a [JOB]."
+    ];
 
-      switch (tone) {
-        case "friendly":
-          body = `I'm super excited to apply for the ${job} role at ${company}! I believe my skills and passion would be a perfect fit for your team.`;
-          break;
-        case "confident":
-          body = `I am confident that my background and experience make me a strong candidate for the ${job} position at ${company}.`;
-          break;
-        default:
-          body = `I am writing to formally express my interest in the ${job} position at your esteemed company.`;
-      }
-
-      const letter = `
-${name}
+    function generateLetter(){
+      const name=document.getElementById('name').value||'Your Name';
+      const email=document.getElementById('email').value||'you@example.com';
+      const phone=document.getElementById('phone').value||'+91 9999999999';
+      const job=document.getElementById('jobTitle').value||'Job Title';
+      const company=document.getElementById('company').value||'Company';
+      const resume=document.getElementById('resumeText').value||'';
+      const today=new Date().toLocaleDateString();
+      const rnd=templates[Math.floor(Math.random()*templates.length)];
+      const body=rnd.replaceAll('[JOB]',job).replaceAll('[COMPANY]',company);
+      const letter=`${name}
 ${email} | ${phone}
-
 ${today}
 
 Hiring Manager
@@ -134,34 +254,26 @@ ${body}
 
 ${resume}
 
-I look forward to the opportunity to contribute to your organization's success and am eager to discuss how my background aligns with your team.
-
-Thank you for your time and consideration.
-
 Sincerely,
-${name}
-`;
-
-      document.getElementById("coverLetter").value = letter.trim();
-      document.getElementById("outputBox").classList.remove("hidden");
+${name}`;
+      document.getElementById('coverLetter').value=letter;
+      document.getElementById('outputBox').classList.add('visible');
     }
 
-    function copyLetter() {
-      const text = document.getElementById("coverLetter");
-      text.select();
-      document.execCommand("copy");
-      alert("Cover letter copied!");
+    function copyLetter(){
+      const t=document.getElementById('coverLetter');
+      t.select(); document.execCommand('copy');
     }
 
-    function downloadLetter() {
-      const text = document.getElementById("coverLetter").value;
-      const blob = new Blob([text], { type: "text/plain" });
-      const link = document.createElement("a");
-      link.href = URL.createObjectURL(blob);
-      link.download = "advanced-cover-letter.txt";
-      link.click();
+    async function downloadPDF(){
+      const {jsPDF}=window.jspdf;
+      const txt=document.getElementById('coverLetter').value;
+      if(!txt)return alert('Generate a letter first');
+      const doc=new jsPDF({unit:'pt',format:'a4'});
+      doc.setFontSize(12);
+      doc.text(doc.splitTextToSize(txt,500),40,60);
+      doc.save('EduConverters_CoverLetter.pdf');
     }
   </script>
 </body>
 </html>
-
