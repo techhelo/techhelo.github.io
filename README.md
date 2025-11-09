@@ -5,13 +5,12 @@ EduConverters is a student-friendly website that offers useful academic tools li
 - CGPA to Percentage Converter  
 - SGPA to CGPA Calculator  
 - Attendance Calculator  
-- Resume Analyzer  
 - Flashcard Generator  
 - Random Topic Picker  
 - Cover Letter Generator  
-- Fake News Detector  
-- QR Code Generator  
-- And more tools coming soon!
+- QR Code Generator
+- Marks to Percentage Converter
+- Password Generator
 
 🔗 Visit the site: [https://techhelo.github.io](https://techhelo.github.io)
 
